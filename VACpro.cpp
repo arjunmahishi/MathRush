@@ -11,9 +11,9 @@ class calc
 	   ans = Correct answer, score = Score alloted for each correct answer, max_time = maximum time allowed for each level */
 	int lo, ro, op, ans, flag=1, score = 0, max_time;       
 	public:
-		void gen();   
+		void play();   
 		int eval(int, int);     // Evaluates if the answer is correct or not
-		int getscore()  {return score;}  // returns score
+		int getscore()  {return score;}    // returns score
 		calc(int o)	{op = o;}    // assigns operator
 };
 
@@ -22,30 +22,46 @@ class player
 	char *name;
 	int highscore;
 	public:
-		void dispdata();
-		void inpname();
+		void dispData();
+		void updateScore();      
+		player(char *cha)
+		{
+			name = cha;
+		}
 };
 
-int menu();
+int menu()
+{
+	int choice;
+   	while (choice < 1 || choice > 5)
+   	{
+   	  	cout << "\t\t\t\t\t\tWelcome to MathRush!!\n\nMenu :\n1. Addition\n2. Substraction\n3. Multiplication\n4. Divide\n5. Exit\n\tChoice : ";
+   	  	cin >> choice;
+   	  	if (choice == 5)
+   	  		exit(0);
+   	}
+   	return choice;
+}
 
 int main()
 {
 	srand(time(NULL));
-	int choice ;
-	char ch;
-	apple:
-	system("cls");
-	choice = menu();
-	calc obj = calc(choice);
-	obj.gen();
-	cout << "\nPlay again ? (y/n) ";
-	ch = getch();
-	if (ch == 'y')
-		goto apple;	
+	int choice; char ch='y';
+	while (ch == 'y' || ch == 'Y'){
+		system("cls");
+	    choice = menu();
+	    calc obj = calc(choice);
+	    obj.play();
+	    cout << "\nPlay again ? (y/n) ";
+	    ch = getch();
+	    if (ch != 'y' && ch != 'Y'  && ch != 'N' && ch != 'n'){
+	    	cout << "\nYou have entered a wrong choice! Try again";
+		}
+	}
 	return 0;
 }
 
-void calc :: gen()          // Operator
+void calc :: play()          // Operator
 		{
 			int ansu,time_taken;
 			clock_t t;
@@ -100,31 +116,25 @@ void calc :: gen()          // Operator
 					if (!eval(ansu, time_taken)) {
 			    		flag = 0; 
 					}
-		    		if (!flag) cout << "\nYou loose!!! \nYour score is : " << getscore() << "\nTry Again.";
+		    		if (!flag) cout << "\nYou loose!!! \nYour score is : " << getscore();
 	    		}
 		}
 	}
 	
 int calc :: eval(int ansu, int time_taken)               // Checking user input and answer, 'ansu' is user's input
-	{
-		if (ansu == ans && time_taken <= max_time) {
-			score++;
-			return 1;
-		}
-		return 0;
+{
+	if (ansu == ans && time_taken <= max_time) {
+		score++;
+		return 1;
 	}
+	return 0;
+}
+
+void player :: updateScore(){                //TODO 
+	highscore++;
+}	
+
+void player :: dispData(){                   //TODO  
 	
-int menu()
-   {
-   	  int choice = -1;
-   	  while (choice<1 || choice>4)
-   	    {
-   	  		cout << "Welcome to the game!!\n\nMenu :\n1. Addition\n2. Substraction\n3. Multiplication\n4. Divide\n\tChoice : ";
-   	  		cin >> choice;
-   	  		if (choice<1 || choice>5) 
-   	  			cout << "\nWrong choice!!\n";
-   	  		if (choice == 5)
-   	  			exit(0);
-   	    }
-   	  return choice;
-   }
+}
+void dispData();
