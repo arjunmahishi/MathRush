@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <conio.h>
+#include "pattern.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ class calc
 		void play();   
 		int eval(int, int);     // Evaluates if the answer is correct or not
 		int getscore()  {return score;}    // returns score
-		calc(int o)	{op = o;}    // assigns operator
+		calc(int o)	{op = o; max_time = 10;}    // assigns operator
 };
 
 class player
@@ -44,7 +45,7 @@ int menu()
 }
 
 int main()
-{
+{	
 	srand(time(NULL));
 	int choice; char ch='y';
 	while (ch == 'y' || ch == 'Y'){
@@ -65,6 +66,7 @@ void calc :: play()          // Operator
 		{
 			int ansu,time_taken;
 			clock_t t;
+			char arr[7][5][8];
 			while (flag==1)
 			{
 				srand(time(NULL));   // Random Seed
@@ -74,7 +76,6 @@ void calc :: play()          // Operator
 			    			  {
 			    		  		lo = rand() % 99 + 10;   // Generate numbers from 10 to 99 
 			    		  	 	ro = rand() % 99 + 10;
-			    		  	 	max_time = 5;
 		    		  	     	ans = lo + ro;
 						  	  } goto A;
 						case 2 :
@@ -83,7 +84,6 @@ void calc :: play()          // Operator
 						  		int rot = rand() % 99 + 10;
 						  		lo = max(lot,rot);
 						  		ro = min(lot,rot);
-						  		max_time = 5;
 						  		ans = lo - ro;
 						  	  } goto A;
 					    case 3 :
@@ -91,7 +91,6 @@ void calc :: play()          // Operator
 						  		lo = rand() % 99 + 10;
 						  		ro = rand() % 9 + 2;
  						  		ans = lo * ro;
- 						  		max_time = 5;
 						      } goto A;
 						case 4 :
 							  {
@@ -101,13 +100,15 @@ void calc :: play()          // Operator
 						  		ro = rand() % 9 + 2;
 						  		if (lo % ro == 0) valid = 1;    // Checking if the answer is a whole number  
 						  	    }
-						  	    max_time = 5;
 						  		ans = lo / ro;
 						  	} goto A;
+				}
 					A:
 					system("cls");
-					cout << "last time : " << time_taken << "\nLeft operand : " << lo << "\nRight operand : " << ro << "\nAnswer : ";
-					
+					cout << "Score : " << getscore() << endl;
+					//cout << "\nLeft operand : " << lo << "\nRight operand : " << ro << "\nAnswer : ";
+					printExp(lo,op,ro);
+					cout << "\n\nAnswer : ";
 					// Calculating time
 					t = clock(); 
 					cin >> ansu;
@@ -119,7 +120,7 @@ void calc :: play()          // Operator
 		    		if (!flag) cout << "\nYou loose!!! \nYour score is : " << getscore();
 	    		}
 		}
-	}
+	
 	
 int calc :: eval(int ansu, int time_taken)               // Checking user input and answer, 'ansu' is user's input
 {
@@ -130,11 +131,13 @@ int calc :: eval(int ansu, int time_taken)               // Checking user input 
 	return 0;
 }
 
-void player :: updateScore(){                //TODO 
+void player :: updateScore(){
+//    ofstream out;
+//	out.open("highscore.txt" ) 
 	highscore++;
 }	
 
 void player :: dispData(){                   //TODO  
 	
 }
-void dispData();
+
