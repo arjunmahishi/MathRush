@@ -6,9 +6,9 @@
 using namespace std;
 
 char threeD[15][5][8]=  { 
-					   		{ {"  #####"}, {"  #   #"},{"  #   #"},{"  #   #"},{"  #####"} },
-					   		{ {"    #  "}, {"    #  "},{"     # "},{"     # "},{"     # "} },
-					   		{ {"  #####"}, {"      #"},{"  #####"},{"  #    "},{"  #####"} },
+				{ {"  #####"}, {"  #   #"},{"  #   #"},{"  #   #"},{"  #####"} },
+				{ {"    #  "}, {"    #  "},{"     # "},{"     # "},{"     # "} },
+				{ {"  #####"}, {"      #"},{"  #####"},{"  #    "},{"  #####"} },
                        		{ {"  #####"}, {"      #"},{"  #####"},{"      #"},{"  #####"} },
                        		{ {"  #   #"}, {"  #   #"},{"  #####"},{"      #"},{"      #"} },
                        		{ {"  #####"}, {"  #    "},{"  #####"},{"      #"},{"  #####"} },
@@ -21,7 +21,7 @@ char threeD[15][5][8]=  {
                        		{ {"       "}, {"       "},{"  #####"},{"       "},{"       "} },
                       		{ {"  #   #"}, {"   # # "},{"    #  "},{"   # # "},{"  #   #"} },
                        		{ {"       "}, {"    0  "},{"  #####"},{"    #  "},{"       "} }
-					   };
+			 };
  
 char threeD2[7][5][8];
 int e;
@@ -29,27 +29,28 @@ int counter (int );
 void operand(int );
 void store(int);
 void operate(int );
+
 void printExp(int lo,int ope, int ro)
 	{
 		srand(time(NULL));
 		int i,j,k;
-   		operand(lo);
-   		operate(ope);
-  		operand(ro);
-  		operate(0);
+		operand(lo);
+		operate(ope);
+		operand(ro);
+		operate(0);
 		for(i=0;i<5;i++)    // printing the expression
+		{
+			for(k=0;k<7;k++)
 			{
-  				for(k=0;k<7;k++)
- 					{
- 						for(j=0;j<8;j++)
- 							{
-   								cout  << threeD2[k][i][j];
- 							}
- 						cout<<" ";
-					}
-				cout<< "\n";
-   		}
-   		e = 0;
+				for(j=0;j<8;j++)
+				{
+					cout  << threeD2[k][i][j];
+				}
+				cout<<" ";
+			}
+			cout<< "\n";
+		}
+		e = 0;
 	}   // end of printExp
   
 void store(int arg)
